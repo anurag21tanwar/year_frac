@@ -1,2 +1,2 @@
-# year_frac
+# year_fraction
 Excel YEARFRAC implementation in ruby
