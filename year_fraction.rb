@@ -5,7 +5,7 @@ module YearFraction
     sdate = Date.parse(start_date)
     edate = Date.parse(end_date)
 
-    return [0, 0.0] if sdate == edate
+    return [0, (0.0).round(6)] if sdate == edate
 
     if diff(sdate, edate) > 0
       edate = Date.parse(start_date)
@@ -36,7 +36,7 @@ module YearFraction
       elsif smonth == 1 && sdate.end_of_month.day == sday
         sday = 30
       end
-      return [(eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360), ((eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360)) / 360.0]
+      return [(eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360), (((eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360)) / 360.0).round(6)]
     when 1
       # Act/Act
       ylength = 365
@@ -46,28 +46,28 @@ module YearFraction
         elsif feb29_between(sdate, edate) || (emonth == 1 && eday == 29)
           ylength = 366
         end
-        return [diff(edate, sdate), diff(edate, sdate) / ylength]
+        return [diff(edate, sdate), (diff(edate, sdate) / ylength).round(6)]
       else
         years = (eyear - syear) + 1.0
         days = diff(Date.new(eyear + 1, 1, 1), Date.new(syear, 1, 1))
         average = days / years
-        return [diff(edate, sdate), diff(edate, sdate) / average]
+        return [diff(edate, sdate), (diff(edate, sdate) / average).round(6)]
       end
     when 2
       # Act/360
-      return [diff(edate, sdate), diff(edate, sdate) / 360.0]
+      return [diff(edate, sdate), (diff(edate, sdate) / 360.0).round(6)]
     when 3
       # Act/365
-      return [diff(edate, sdate), diff(edate, sdate) / 365.0]
+      return [diff(edate, sdate), (diff(edate, sdate) / 365.0).round(6)]
     when 4
       # European 30/360
       sday = 30 if sday == 31
       eday = 30 if eday == 31
       # Remarkably, do not change February 28 or February 29 at all
-      return [(eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360), ((eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360)) / 360.0]
+      return [(eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360), (((eday + emonth * 30 + eyear * 360) - (sday + smonth * 30 + syear * 360)) / 360.0).round(6)]
     else
       # Act/365
-      return [diff(edate, sdate), diff(edate, sdate) / 365.0]
+      return [diff(edate, sdate), (diff(edate, sdate) / 365.0).round(6)]
     end
   end
 
