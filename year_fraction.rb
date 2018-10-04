@@ -48,7 +48,7 @@ module YearFraction
         end
         return [diff(edate, sdate), diff(edate, sdate) / ylength]
       else
-        years = (eyear - syear) + 1
+        years = (eyear - syear) + 1.0
         days = diff(Date.new(eyear + 1, 1, 1), Date.new(syear, 1, 1))
         average = days / years
         return [diff(edate, sdate), diff(edate, sdate) / average]
